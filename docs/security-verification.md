@@ -1,0 +1,7 @@
+# Security verification scope
+
+The release audit identified an applicable React Server Components denial-of-service advisory even though the starter declares that package as a development dependency. React, React DOM and react-server-dom-webpack were patched together to 19.2.8. Minimal compatible Vite and transitive patches were also applied. See the [React advisory](https://github.com/advisories/GHSA-wx67-qw84-cm4g) and the data-free [dependency audit](dependency-audit.json).
+
+The installed tree now reports zero high or critical npm advisories. Seven low/moderate alerts remain in build/development tooling (Babel, the Cloudflare Vite/Wrangler chain and Drizzle’s older esbuild toolchain). This is not a claim that every dependency or every attack surface is cleared. The development and controlled-identity Workers bind loopback only; they are not published. The deployment archive contains compiled Worker/assets, not the development server or its test identities.
+
+The backend regression suite checks ownership, viewer/editor boundaries, private-note exclusion, one-use/revoked invitations, upload/download authorization, stale updates, source safety and moderator denial. Production ChatGPT owner sign-in and a goal save/reload/trash cycle were verified. A second real production identity, public-gateway forged-header isolation and permanent account erasure are still unverified or unavailable. The acceptance ledger retains these boundaries.

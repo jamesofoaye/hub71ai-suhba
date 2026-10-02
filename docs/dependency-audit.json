@@ -1,0 +1,48 @@
+{
+  "checked": "2026-10-02",
+  "counts": {
+    "info": 0,
+    "low": 3,
+    "moderate": 4,
+    "high": 0,
+    "critical": 0,
+    "total": 7
+  },
+  "remaining": [
+    {
+      "package": "@babel/core",
+      "severity": "low",
+      "range": "<=7.29.0"
+    },
+    {
+      "package": "@cloudflare/vite-plugin",
+      "severity": "low",
+      "range": "1.24.0 - 1.41.0"
+    },
+    {
+      "package": "@esbuild-kit/core-utils",
+      "severity": "moderate",
+      "range": "*"
+    },
+    {
+      "package": "@esbuild-kit/esm-loader",
+      "severity": "moderate",
+      "range": "*"
+    },
+    {
+      "package": "drizzle-kit",
+      "severity": "moderate",
+      "range": "0.19.0 - 1.0.0-beta.1-fd8bfcc"
+    },
+    {
+      "package": "esbuild",
+      "severity": "moderate",
+      "range": "<=0.24.2 || 0.27.3 - 0.28.0"
+    },
+    {
+      "package": "wrangler",
+      "severity": "low",
+      "range": "4.64.0 - 4.101.0"
+    }
+  ]
+}
