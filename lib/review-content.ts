@@ -1,0 +1,1 @@
+export function reviewedContent(data:Record<string,any>){return JSON.stringify({title:data.title,challenge:data.challenge,skills:data.skills,requirements:data.requirements,requirementMap:data.requirementMap??[],artifact:data.artifact,contribution:data.contribution,gaps:data.gaps});}

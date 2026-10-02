@@ -1,0 +1,2 @@
+import { db,identity,responseError } from '@/lib/server';
+export async function GET(){try{const u=await identity();const rows=await db().prepare('SELECT * FROM entities WHERE owner=?').bind(u.userId).all<any>();return Response.json({exportedAt:new Date().toISOString(),owner:u.userId,entities:rows.results.map(r=>({...r,data:JSON.parse(r.data)}))},{headers:{'Content-Disposition':'attachment; filename="suhba-export.json"','Cache-Control':'private, no-store'}});}catch(e){return responseError(e);}}
