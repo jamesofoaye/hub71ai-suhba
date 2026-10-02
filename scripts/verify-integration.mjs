@@ -1,11 +1,11 @@
 import {spawn} from 'node:child_process';
-import {createWriteStream,mkdtempSync} from 'node:fs';
+import {createWriteStream,mkdtempSync,readdirSync} from 'node:fs';
 import {createServer} from 'node:net';
 const port=await new Promise((resolve,reject)=>{const probe=createServer();probe.once('error',reject);probe.listen(0,'127.0.0.1',()=>{const assigned=probe.address().port;probe.close(()=>resolve(assigned));});});
 const storage=mkdtempSync('/tmp/suhba-verification-');
 const args=['--import','./scripts/sites-env.mjs','./node_modules/wrangler/bin/wrangler.js'];
 function run(cmd,args,env=process.env){return new Promise((resolve,reject)=>{const child=spawn(cmd,args,{stdio:'inherit',env});child.on('error',reject);child.on('exit',code=>code===0?resolve():reject(new Error(cmd+' exited '+code)));});}
-await run(process.execPath,[...args,'d1','execute','DB','--config','dist/server/wrangler.json','--local','--persist-to',storage,'--file','drizzle/0000_previous_corsair.sql']);
+for(const migration of readdirSync('drizzle').filter(name=>/^\d+.*\.sql$/.test(name)).sort())await run(process.execPath,[...args,'d1','execute','DB','--config','dist/server/wrangler.json','--local','--persist-to',storage,'--file','drizzle/'+migration]);
 const log=createWriteStream('/tmp/suhba-verification-worker.log');
 const server=spawn(process.execPath,[...args,'dev','--config','dist/server/wrangler.json','--local','--persist-to',storage,'--ip','127.0.0.1','--inspector-port','0','--port',String(port),'--var','ADMIN_USER_IDS:qa-admin'],{stdio:['ignore','pipe','pipe'],detached:true});
 server.stdout.pipe(log);server.stderr.pipe(log);

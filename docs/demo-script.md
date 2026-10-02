@@ -14,13 +14,19 @@ Use the presenter’s signed-in account at https://suhba.hub71-hackat-7654.chatg
 
 **2:05–2:30 — A decision with uncertainty.** Click **Plan & compare**. Use presenter-prepared records named `Demo · illustrative assumptions` and its what-if copy. Explicitly say these are illustrative user-entered assumptions, not Abu Dhabi price quotes. A baseline with one unknown cost/time must show **Unknown**; its what-if may substitute an explicitly labelled assumption. Show **Cash remaining**, **Time remaining** and any budget conflict. The baseline stays unchanged.
 
-**2:30–2:40 — Close.** Return to **Discover**. “Discover what fits, make the tradeoffs visible, and take a next step you can evidence.” If asked, **Work samples** contains labelled **SAMPLE CHALLENGE** workflows, actual artifact editing and requirement mapping; it does not claim a real employer, endorsement or job guarantee. AI is deferred.
+**2:30–2:40 — Close.** Return to **Discover**. “Discover what fits, make the tradeoffs visible, and take a next step you can evidence.” If asked, **Work samples** contains labelled **SAMPLE CHALLENGE** workflows, actual artifact editing and requirement mapping; it does not claim a real employer, endorsement or job guarantee. Live AI proposals are available only after a successful runtime response; template drafts remain labelled.
+
+## Optional AI branch (replace the inquiry-template segment)
+
+Inside the goal editor, open **Find a practical next step**. Enter only context you choose to send: `I want a neighbourhood shortlist. I have not confirmed current tenancy documents. Please propose questions and one practical verification step; do not invent costs or eligibility.` Select **Check a tenancy document** from the source picker and click **Generate goal proposal**. The panel sends that explicit text and selected editorial source summaries to OpenAI. No profile, private notes or evidence files are added automatically.
+
+Wait for a validated result labelled **Live AI**, with model and token usage. Explain cited evidence, assumptions and unknowns. Click **Apply to this draft**, review proposed changes and **Save workspace**. Reload to show persistence. AI does not confirm an outcome or provide human review; changed proof content needs review again. Generation is bounded to 10 requests per person per UTC day, 20 seconds apart and 100 total preview attempts. Errors preserve the selected text. Use the transparent inquiry-template path if the provider is unavailable; never label that template live AI.
 
 ## Optional native-media branch
 
-In **Discover**, choose **Platform → TikTok**, open **An attractions overview for a new arrival**, then **Load original native embed**. Its player is served by TikTok with creator attribution. **Hide original media** removes it. This post has been tested for real playback inside Suhba. The pitch does not rely on external media loading. Other posts may remain link-only or be restricted by their provider; a loaded frame alone is not playback evidence.
+In **Discover**, open **An attractions overview for a new arrival** in **Stories from the city**. The original TikTok player mounts immediately, with separate creator-profile and original-post links. Press the provider's Play control. Switching to another story or closing removes the current player. There is no redundant Load step in Stories. The separate source-detail panel retains explicit provider loading.
 
-Instagram’s **A month of Abu Dhabi discoveries** has an approved provider-generated native post embed. Photo display and carousel **Next** were tested in Suhba after the user explicitly approved Instagram’s API Terms. Other Instagram posts remain link-only until individually reviewed. No automated Instagram API connection or platform scraping is implemented.
+Instagram’s **A month of Abu Dhabi discoveries** displays its provider photo/carousel embed. YouTube story thumbnails and original controls load automatically. Instagram reels may offer **Watch on Instagram** rather than inline video; provider restrictions remain visible. Only observed playback is claimed; loaded frames alone are not playback evidence. No media copying, scraping or automated Instagram API connection is implemented.
 
 ## Reset and safe repeat
 

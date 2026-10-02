@@ -18,4 +18,8 @@ jobs:
       - run: node node_modules/typescript/bin/tsc --noEmit
       - run: node tests/planner.test.mjs
       - run: node tests/embeds.test.mjs
+      - run: node tests/ai.test.mjs
+      - run: node tests/ai-apply.test.mjs
+      - run: node tests/ai-ui.test.mjs
+      - run: node tests/creator-profile.test.mjs
       - run: npm run build

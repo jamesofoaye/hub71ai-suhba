@@ -1,5 +1,5 @@
 {
-  "passed": 72,
+  "passed": 80,
   "checks": [
     "anonymous state rejected",
     "profile durable and identity-owned",
@@ -34,6 +34,14 @@
     "moderation publishes attributed source to database catalogue",
     "source correction and withdrawal propagate to saved source identity",
     "AI absence reports explicit unavailable state",
+    "AI anonymous request rejected",
+    "AI cross-origin request rejected",
+    "AI unrelated workspace access rejected",
+    "AI duplicate selected source rejected",
+    "AI unapproved private context fields rejected",
+    "AI excessive context rejected",
+    "AI excessive streamed body rejected",
+    "AI malformed request rejected",
     "recoverable removal and restoration retain data",
     "owner export contains durable revised artifacts",
     "anonymous discovery exposes only source records",

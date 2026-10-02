@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { creatorProfile } from '../lib/creator-profile';
 import './story-viewer.css';
 
 export type StorySource = {
@@ -20,6 +21,10 @@ function mediaLabel(source: StorySource) {
   return source.platform === 'TikTok' ? 'TikTok video' : 'YouTube video';
 }
 function initials(name: string) { return name.trim().split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase() || 'S'; }
+function CreatorLink({ source }: { source: StorySource }) {
+  const profile = creatorProfile(source);
+  return profile ? <a className="suhba-story-creator" href={profile.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${source.creator} profile on ${source.platform} (new tab)`}>{source.creator} ↗</a> : <strong>{source.creator}</strong>;
+}
 
 export default function StoryViewer({ sources, renderMedia, onExplore, onSave, isSaved }: Props) {
   const stories = useMemo(() => sources.filter(source => ['TikTok', 'Instagram', 'YouTube'].includes(source.platform) && source.status !== 'withdrawn'), [sources]);
@@ -28,6 +33,7 @@ export default function StoryViewer({ sources, renderMedia, onExplore, onSave, i
   const [saving, setSaving] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
   const touchRef = useRef<{ x: number; y: number } | null>(null);
   const index = stories.findIndex(source => source.id === selectedId);
@@ -44,6 +50,7 @@ export default function StoryViewer({ sources, renderMedia, onExplore, onSave, i
     closeRef.current?.focus();
     return () => { document.body.style.overflow = oldOverflow; openerRef.current?.focus(); };
   }, [!!selectedId]);
+  useEffect(() => { bodyRef.current?.scrollTo({ top: 0, behavior: 'instant' }); }, [selectedId]);
   useEffect(() => {
     if (!selectedId) return;
     if (!current) { setSelectedId(null); return; }
@@ -74,12 +81,12 @@ export default function StoryViewer({ sources, renderMedia, onExplore, onSave, i
   }
   if (!stories.length) return null;
   return <section className="suhba-stories" aria-labelledby="suhba-stories-heading">
-    <div className="suhba-stories-intro"><div><span className="eyebrow">A WINDOW INTO THE EVERYDAY</span><h2 id="suhba-stories-heading">Stories from the city</h2></div><p>Browse creator videos and posts. Load originals when you’re ready.</p></div>
+    <div className="suhba-stories-intro"><div><span className="eyebrow">A WINDOW INTO THE EVERYDAY</span><h2 id="suhba-stories-heading">Stories from the city</h2></div><p>Browse creator videos and posts. Tap a story to load its original.</p></div>
     <div className="suhba-story-rail" aria-label="Creator stories">
-      {stories.map(source => <button type="button" key={source.id} className="suhba-story-trigger" aria-label={`Browse ${source.title} by ${source.creator}, ${mediaLabel(source)}`} aria-haspopup="dialog" onClick={event => { openerRef.current = event.currentTarget; setSelectedId(source.id); }}>
+      {stories.map(source => <div key={source.id} className="suhba-story-card"><button type="button" className="suhba-story-trigger" aria-label={`Browse ${source.title} by ${source.creator}, ${mediaLabel(source)}`} aria-haspopup="dialog" onClick={event => { openerRef.current = event.currentTarget; setSelectedId(source.id); }}>
         <span className="suhba-story-avatar" aria-hidden="true"><span>{initials(source.creator)}</span><small>{source.platform === 'Instagram' ? 'IG' : source.platform === 'TikTok' ? 'TT' : 'YT'}</small></span>
-        <strong>{source.creator}</strong><span>{source.title}</span><small>{mediaLabel(source)} · {source.nativeEmbedApproved ? 'Native embed' : 'Original link'}</small>
-      </button>)}
+        <span>{source.title}</span><small>{mediaLabel(source)} · {source.nativeEmbedApproved ? 'Native embed' : 'Original link'}</small>
+      </button><CreatorLink source={source}/></div>)}
     </div>
     {current && <div className="suhba-story-overlay" onClick={event => { if (event.target === event.currentTarget) close(); }}>
       <div className="suhba-story-dialog" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="suhba-story-title" aria-describedby="suhba-story-description" onTouchStart={event => { const touch = event.touches[0]; touchRef.current = { x: touch.clientX, y: touch.clientY }; }} onTouchEnd={event => {
@@ -90,14 +97,16 @@ export default function StoryViewer({ sources, renderMedia, onExplore, onSave, i
         const deltaX = event.changedTouches[0].clientX - start.x, deltaY = event.changedTouches[0].clientY - start.y;
         if (Math.abs(deltaX) > 65 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) advance(deltaX < 0 ? 1 : -1);
       }}>
-        <div className="suhba-story-top"><span aria-live="polite" aria-atomic="true">Story {index + 1} of {stories.length}</span><button type="button" ref={closeRef} aria-label="Close stories" onClick={close}>Close ×</button></div>
-        <div className="suhba-story-progress" aria-hidden="true">{stories.map((source, position) => <span key={source.id} className={position === index ? 'current' : position < index ? 'previous' : ''}/>)}</div>
-        <div className="suhba-story-heading"><span className="suhba-story-platform">{current.platform} · {mediaLabel(current)}</span><h2 id="suhba-story-title">{current.title}</h2><p>By <strong>{current.creator}</strong></p></div>
-        <p id="suhba-story-description" className="suhba-story-description">Original creator content. Use the arrows or swipe to browse. Provider media loads only when you choose to load it.</p>
-        <div className="suhba-story-media" key={current.id}>{current.nativeEmbedApproved && current.status !== 'broken' ? renderMedia(current) : <div className="suhba-story-fallback"><span aria-hidden="true">↗</span><h3>Explore the original</h3><p>{current.status === 'broken' ? 'This source has been reported unavailable.' : 'An approved native embed is not available for this source.'} Open the original on {current.platform} to check availability.</p></div>}</div>
-        <p className="suhba-story-provider-note">Provider login, age restrictions, removed posts or browser settings may prevent media loading. The original link remains available. Suhba does not copy or host this media.</p>
+        <header className="suhba-story-header"><div className="suhba-story-top"><span aria-live="polite" aria-atomic="true">Story {index + 1} of {stories.length}</span><button type="button" ref={closeRef} aria-label="Close stories" onClick={close}>Close ×</button></div>
+        <div className="suhba-story-progress" aria-hidden="true">{stories.map((source, position) => <span key={source.id} className={position === index ? 'current' : position < index ? 'previous' : ''}/>)}</div></header>
+        <div className="suhba-story-body" ref={bodyRef}>
+        <div className="suhba-story-heading"><span className="suhba-story-platform">{current.platform} · {mediaLabel(current)}</span><h2 id="suhba-story-title">{current.title}</h2><p>By <CreatorLink source={current}/></p></div>
+        <p id="suhba-story-description" className="suhba-story-description">Use the arrows or swipe to browse. Opening a story loads its approved original embed from the provider.</p>
+        <div className="suhba-story-media" data-platform={current.platform} key={current.id}>{current.nativeEmbedApproved && current.status !== 'broken' ? renderMedia(current) : <div className="suhba-story-fallback"><span aria-hidden="true">↗</span><h3>Explore the original</h3><p>{current.status === 'broken' ? 'This source has been reported unavailable.' : 'An approved native embed is not available for this source.'} Open the original on {current.platform} to check availability.</p></div>}</div>
+        <p className="suhba-story-provider-note">Provider login or restrictions may prevent playback. Open the original if it is unavailable here.</p>
         <div className="suhba-story-actions"><a className="suhba-story-original" href={current.url} target="_blank" rel="noopener noreferrer">Open original ↗</a><button type="button" disabled={saving} aria-pressed={isSaved(current)} onClick={save}>{saving ? 'Saving…' : isSaved(current) ? 'Saved · remove' : 'Save source'}</button><button type="button" onClick={() => { const source = current; close(); onExplore(source); }}>Source details</button></div>
         {saveError && <p role="alert">{saveError}</p>}
+        </div>
         <nav className="suhba-story-navigation" aria-label="Story navigation"><button type="button" disabled={index === 0} onClick={() => advance(-1)}>← Previous</button><span>{index + 1} / {stories.length}</span><button type="button" disabled={index === stories.length - 1} onClick={() => advance(1)}>Next →</button></nav>
       </div>
     </div>}

@@ -8,6 +8,13 @@
       "when": 1790924436484,
       "tag": "0000_previous_corsair",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790937900000,
+      "tag": "0001_ai_attempts",
+      "breakpoints": true
     }
   ]
 }
