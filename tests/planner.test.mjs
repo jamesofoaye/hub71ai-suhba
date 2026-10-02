@@ -19,3 +19,8 @@ assert.throws(()=>validate('scenario',{title:'dup',items:[{id:'x',label:'X',cash
 const constrained=validate('scenario',{...base,rules:[{id:'r',label:'Family time',type:'max hours',limit:5,itemId:''},{id:'e',label:'Confirmed cost',type:'require evidence',limit:null,itemId:'fee'}]});
 assert.equal(summarizeScenario(constrained).conflicts.length,2);
 console.log('PASS scenario dependencies, duplicate IDs, household time and evidence constraints');
+
+const pennies=validate('scenario',{title:'Decimal precision',startingCash:0.3,income:0,budget:0.3,availableHours:0.3,items:[{id:'a',label:'A',cash:0.1,hours:0.1,basis:'assumption'},{id:'b',label:'B',cash:0.2,hours:0.2,basis:'assumption'}],rules:[{id:'limit',label:'Cash limit',type:'max cash',limit:0.3,itemId:''}]});
+const precise=summarizeScenario(pennies);assert.equal(precise.cash,0.3);assert.equal(precise.cashRemaining,0);assert.equal(precise.hours,0.3);assert.equal(precise.hoursRemaining,0);assert.deepEqual(precise.conflicts,[]);
+assert.throws(()=>validate('scenario',{...pennies,budget:0.001}));assert.throws(()=>validate('scenario',{...pennies,income:Number.MAX_VALUE}));assert.throws(()=>validate('scenario',{...pennies,rules:[{id:'bad',label:'Bad cash precision',type:'max cash',limit:0.001}]}));
+console.log('PASS decimal cash/time arithmetic without false constraint conflicts; unsupported currency precision and unsafe magnitudes rejected');

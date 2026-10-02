@@ -23,13 +23,13 @@ The difference is the connected journey from lived experience to an evidenced ne
 
 ## Preview and access
 
-[Public source repository](https://github.com/jamesofoaye/hub71ai-suhba). Local preview: `http://127.0.0.1:5173/`. [Hosted ChatGPT Site](https://suhba.hub71-hackat-7654.chatgpt.site) is successfully deployed with owner-private access. Continue with ChatGPT using the allowed owner account. Public access is requested but currently unavailable in this workspace’s Sites policy; no access has been widened. Public discovery is designed for visitors; saving private workspaces requires ChatGPT sign-in. The local starter mock identity is development-only.
+[Public source repository](https://github.com/jamesofoaye/hub71ai-suhba). Local preview: `http://127.0.0.1:5173/`. [Hosted ChatGPT Site](https://suhba.hub71-hackat-7654.chatgpt.site) is successfully deployed with workspace-restricted access. All members of the hackathon ChatGPT workspace can sign in, following explicit owner approval. Visitors outside that workspace still need an approved Site invitation; unrestricted public access is unavailable under workspace policy. Public discovery is designed for visitors; saving private workspaces requires ChatGPT sign-in. The local starter mock identity is development-only.
 
 ## Run locally
 
 Use Node 22.13 or newer. `npm run install:ci`, `npm run db:generate`, apply the checked-in D1 migration with Wrangler locally, then `npm run dev`. Preview binds loopback. The Sites starter provides a local-only mock ChatGPT identity; production authentication comes from the Sites sign-in gateway. Client-supplied roles never grant moderator privileges.
 
-`node node_modules/typescript/bin/tsc --noEmit` checks types. `npm run build` builds the Vinext React application and Cloudflare Worker. `node tests/planner.test.mjs` checks deterministic calculations. The private integration harness exercises a built Worker with controlled identities, D1 persistence and R2 bytes. Its fixture file is intentionally excluded from this public repository. The data-free report is [tests/integration-results.json](tests/integration-results.json). `node scripts/verify-integration.mjs` is available only in the private development checkout with that harness; it creates isolated local storage. Never expose the direct-header test Worker publicly. Public clones can run the type check, build and planner checks above.
+`node node_modules/typescript/bin/tsc --noEmit` checks types. `npm run build` builds the Vinext React application and Cloudflare Worker. `node tests/planner.test.mjs` checks deterministic calculations, including decimal precision. `node tests/embeds.test.mjs` checks safe provider adapters. The private integration harness exercises a built Worker with controlled identities, D1 persistence and R2 bytes. Its fixture file is intentionally excluded from this public repository. The data-free report is [tests/integration-results.json](tests/integration-results.json). `node scripts/verify-integration.mjs` is available only in the private development checkout with that harness; it creates isolated local storage. Never expose the direct-header test Worker publicly. Public clones can run the type check, build and planner checks above.
 
 ## Actual architecture
 
@@ -37,7 +37,7 @@ Cloudflare Worker routes + D1 prepared statements, R2 private evidence storage, 
 
 Public browsing exposes curated source records only. Personal workspaces require sign-in. Helpers/asks/outcome anecdotes are opt-in and available to signed-in users; public ask projections exclude conversations. No external messages are sent. No platform scraping, fabricated availability, testimonials, prices or creators.
 
-Discovery contains original editorial summaries and attributed original links. Review depth, unknown publication dates, separate editorial-check dates, commercial promotion and source conflicts remain visible. Native embeds are opt-in and require editorial approval and supported provider paths. Instagram and TikTok link-out is usable; direct playback was not verified.
+Discovery contains original editorial summaries and attributed original links. Review depth, unknown publication dates, separate editorial-check dates, commercial promotion and source conflicts remain visible. Native embeds are opt-in and require editorial approval and supported provider paths. A creator story rail presents source position, keyboard navigation, mobile swipes, saving and original links. One TikTok player and one Instagram photo/carousel post were individually verified in-app. Other sources retain original-link fallbacks until approved; Instagram API access is not connected.
 
 ## Delivery state
 

@@ -1,48 +1,173 @@
 {
-  "checked": "2026-10-02",
-  "counts": {
-    "info": 0,
-    "low": 3,
-    "moderate": 4,
-    "high": 0,
-    "critical": 0,
-    "total": 7
-  },
-  "remaining": [
-    {
-      "package": "@babel/core",
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@cloudflare/vite-plugin": {
+      "name": "@cloudflare/vite-plugin",
       "severity": "low",
-      "range": "<=7.29.0"
+      "isDirect": true,
+      "via": [
+        "wrangler"
+      ],
+      "effects": [],
+      "range": "1.24.0 - 1.41.0",
+      "nodes": [
+        "node_modules/@cloudflare/vite-plugin"
+      ],
+      "fixAvailable": {
+        "name": "@cloudflare/vite-plugin",
+        "version": "1.62.4",
+        "isSemVerMajor": false
+      }
     },
-    {
-      "package": "@cloudflare/vite-plugin",
+    "@esbuild-kit/core-utils": {
+      "name": "@esbuild-kit/core-utils",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "esbuild"
+      ],
+      "effects": [
+        "@esbuild-kit/esm-loader"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@esbuild-kit/core-utils"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@esbuild-kit/esm-loader": {
+      "name": "@esbuild-kit/esm-loader",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "@esbuild-kit/core-utils"
+      ],
+      "effects": [
+        "drizzle-kit"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@esbuild-kit/esm-loader"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    "drizzle-kit": {
+      "name": "drizzle-kit",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "@esbuild-kit/esm-loader"
+      ],
+      "effects": [],
+      "range": "0.19.0 - 1.0.0-beta.1-fd8bfcc",
+      "nodes": [
+        "node_modules/drizzle-kit"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    "esbuild": {
+      "name": "esbuild",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1102341,
+          "name": "esbuild",
+          "dependency": "esbuild",
+          "title": "esbuild enables any website to send any requests to the development server and read the response",
+          "url": "https://github.com/advisories/GHSA-67mh-4wv8-2f99",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-346"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=0.24.2"
+        },
+        {
+          "source": 1120680,
+          "name": "esbuild",
+          "dependency": "esbuild",
+          "title": "esbuild allows arbitrary file read when running the development server on Windows",
+          "url": "https://github.com/advisories/GHSA-g7r4-m6w7-qqqr",
+          "severity": "low",
+          "cwe": [
+            "CWE-22"
+          ],
+          "cvss": {
+            "score": 2.5,
+            "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:N"
+          },
+          "range": ">=0.27.3 <0.28.1"
+        }
+      ],
+      "effects": [
+        "@esbuild-kit/core-utils",
+        "wrangler"
+      ],
+      "range": "<=0.24.2 || 0.27.3 - 0.28.0",
+      "nodes": [
+        "node_modules/@esbuild-kit/core-utils/node_modules/esbuild",
+        "node_modules/esbuild",
+        "node_modules/wrangler/node_modules/esbuild"
+      ],
+      "fixAvailable": {
+        "name": "drizzle-kit",
+        "version": "0.18.1",
+        "isSemVerMajor": true
+      }
+    },
+    "wrangler": {
+      "name": "wrangler",
       "severity": "low",
-      "range": "1.24.0 - 1.41.0"
-    },
-    {
-      "package": "@esbuild-kit/core-utils",
-      "severity": "moderate",
-      "range": "*"
-    },
-    {
-      "package": "@esbuild-kit/esm-loader",
-      "severity": "moderate",
-      "range": "*"
-    },
-    {
-      "package": "drizzle-kit",
-      "severity": "moderate",
-      "range": "0.19.0 - 1.0.0-beta.1-fd8bfcc"
-    },
-    {
-      "package": "esbuild",
-      "severity": "moderate",
-      "range": "<=0.24.2 || 0.27.3 - 0.28.0"
-    },
-    {
-      "package": "wrangler",
-      "severity": "low",
-      "range": "4.64.0 - 4.101.0"
+      "isDirect": true,
+      "via": [
+        "esbuild"
+      ],
+      "effects": [
+        "@cloudflare/vite-plugin"
+      ],
+      "range": "4.64.0 - 4.101.0",
+      "nodes": [
+        "node_modules/wrangler"
+      ],
+      "fixAvailable": {
+        "name": "@cloudflare/vite-plugin",
+        "version": "1.62.4",
+        "isSemVerMajor": false
+      }
     }
-  ]
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 2,
+      "moderate": 4,
+      "high": 0,
+      "critical": 0,
+      "total": 6
+    },
+    "dependencies": {
+      "prod": 197,
+      "dev": 655,
+      "optional": 223,
+      "peer": 43,
+      "peerOptional": 0,
+      "total": 893
+    }
+  }
 }

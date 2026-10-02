@@ -1,10 +1,11 @@
 {
-  "passed": 49,
+  "passed": 72,
   "checks": [
     "anonymous state rejected",
     "profile durable and identity-owned",
     "fresh read preserves goal and private note",
     "repeated create uses one ID",
+    "repeated create with changed content rejected",
     "unrelated user cannot mutate",
     "cross-origin mutation rejected",
     "goal self-loop rejected",
@@ -49,7 +50,29 @@
     "rejection disables previously approved source",
     "scenario self dependency rejected",
     "scenario cycle rejected",
-    "scenario duplicate IDs rejected"
+    "scenario duplicate IDs rejected",
+    "native embed eligibility remains a JSON boolean after seed migration",
+    "stale direct source edit is rejected",
+    "stale direct source edit preserves latest status",
+    "removed profile cannot silently recreate",
+    "profile restore preserves original data",
+    "removed helper cannot silently recreate",
+    "helper restore preserves original data",
+    "unrelated user cannot release an accepted ask",
+    "helper release reopens ask without exposing previous conversation",
+    "released helper retains only own private history",
+    "helper cannot withdraw requester ask",
+    "requester withdrawal makes ask private draft and preserves history",
+    "withdrawn ask can reopen without losing previous conversations",
+    "evidence export manifest respects owning workspace and separates file bytes",
+    "accepted helper has explicit participant role",
+    "unanswered helper can release without inventing a reply",
+    "answered ask withdrawal archives its conversation",
+    "distinct historical helpers only receive conversation-time metadata",
+    "resolved helper view remains a frozen read-only history",
+    "owned workspace manifest includes collaborator evidence without unrelated leakage",
+    "archived evidence manifest requires restoration before download",
+    "restored evidence download retains collaborator-uploaded bytes"
   ],
   "scope": "Local built Worker, actual D1/R2, controlled identity headers. Does not validate production dispatcher authentication."
 }
