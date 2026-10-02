@@ -23,7 +23,7 @@ The difference is the connected journey from lived experience to an evidenced ne
 
 ## Preview and access
 
-[Public source repository](https://github.com/jamesofoaye/hub71ai-suhba). Local preview: `http://127.0.0.1:5173/`. [Hosted ChatGPT Site](https://here-abu-dhabi.hub71-hackat-7654.chatgpt.site) is successfully deployed with owner-private access. Continue with ChatGPT using the allowed owner account. Public access is requested but currently unavailable in this workspace’s Sites policy; no access has been widened. Public discovery is designed for visitors; saving private workspaces requires ChatGPT sign-in. The local starter mock identity is development-only.
+[Public source repository](https://github.com/jamesofoaye/hub71ai-suhba). Local preview: `http://127.0.0.1:5173/`. [Hosted ChatGPT Site](https://suhba.hub71-hackat-7654.chatgpt.site) is successfully deployed with owner-private access. Continue with ChatGPT using the allowed owner account. Public access is requested but currently unavailable in this workspace’s Sites policy; no access has been widened. Public discovery is designed for visitors; saving private workspaces requires ChatGPT sign-in. The local starter mock identity is development-only.
 
 ## Run locally
 
